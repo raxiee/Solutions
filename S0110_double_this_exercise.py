@@ -27,11 +27,9 @@ Fortsæt derefter med den næste fil.
 """
 
 #  Write your function below this line.
-
-
-# Here starts the main program. From the main program you can call your functions.
 def double_this(number):
     return number * 2
+# Here starts the main program. From the main program you can call your functions.
 new_number = double_this(3)
 double_number = []
 double_number .append(new_number)
