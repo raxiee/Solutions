@@ -42,7 +42,7 @@ def factorial(number):
     #while number >= 2:
         #result = number * (number - 1)
         #number - 1
-        #return result
+    #return result
 
 # Here starts the main program. From the main program you can call your functions.
 factorial_input = 5
