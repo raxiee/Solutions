@@ -19,8 +19,8 @@ import turtle  # this imports a library called "turtle". A library is (someone e
 # My stuff here
 
 def visible(turtle_name):
-    x = turtle_name.position()[0]
-    y = turtle_name.position()[1]
+    x = int(turtle_name.position()[0])
+    y = int(turtle_name.position()[1])
     if x in range(-480, 480) and y in range(-480, 480):
         return True
     else:
@@ -33,17 +33,17 @@ def many_squares(amount, size, distance):
         tom.penup()
         tom.forward(distance)
         tom.pendown()
-        print("hej", visible(tom))
+        print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+        print(visible(tom))
 def square(turtle_name, length):
     for _ in range(4):
         turtle_name.forward(length)
         turtle_name.right(90)
 
-
 tom = turtle.Turtle()
-tom.speed(1)
+tom.speed(0)
 
-many_squares(3, 50, 100)
+many_squares(3, 50, 479)
 turtle.done()
 
 
