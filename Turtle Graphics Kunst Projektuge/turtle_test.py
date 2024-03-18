@@ -16,6 +16,37 @@ def main():
     some_other_turtle_function(myturtle)
     turtle.done()  # keeps the turtle window open after the program is done
 
+# My stuff here
+
+def visible(turtle_name):
+    x = turtle_name.position()[0]
+    y = turtle_name.position()[1]
+    if x in range(-480, 480) and y in range(-480, 480):
+        return 0
+
+def many_squares(turtle, amount, size, distance):
+    for _ in range(amount):
+        square(turtle, size)
+        turtle.penup()
+        turtle.forward(distance)
+        turtle.pendown()
+
+def square(turtle, length):
+    for _ in range(4):
+        turtle.forward(length)
+        turtle.right(90)
+
+tom = turtle.Turtle()
+tom.speed(1)
+
+many_squares(tom,3, 50, 100)
+turtle.done()
+
+
+
+
+
+
 
 if __name__ == '__main__':  # is this file run as the main program (as opposed to being imported)?
     main()

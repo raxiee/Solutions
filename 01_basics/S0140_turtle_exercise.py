@@ -61,8 +61,12 @@ def visible(turtle_name):
     # and this:           y-value: turtle_name.position()[1]
     # return 0
 
-def many_squares(amount, size, distance):
-
+def many_squares(turtle, amount, size, distance):
+    for _ in range(amount):
+        square(turtle, size)
+        turtle.penup()
+        turtle.forward(distance)
+        turtle.pendown()
 
 
 
@@ -87,15 +91,17 @@ def demo():  # demonstration of basic turtle commands
 
 # demo()
 # Del 1
-def square(length):
-    tom = turtle.Turtle()
-    print(type(tom))
-    tom.speed(1)
-    for i in range(4):
-        if i < 4:
-            tom.forward(length)
-            tom.right(90)
+def square(turtle, length):
+    for _ in range(4):
+        turtle.forward(length)
+        turtle.right(90)
 
-square(480)
+# square(480)
+# turtle.done()
+# visible(tom)
+
+tom = turtle.Turtle()
+tom.speed(1)
+
+many_squares(tom,3, 50, 100)
 turtle.done()
-visible(tom)
