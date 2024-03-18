@@ -17,7 +17,6 @@ import turtle  # this imports a library called "turtle". A library is (someone e
 #     turtle.done()  # keeps the turtle window open after the program is done
 
 # My stuff here
-
 def visible(turtle_name):
     x = int(turtle_name.position()[0])
     y = int(turtle_name.position()[1])
@@ -25,6 +24,11 @@ def visible(turtle_name):
         return True
     else:
         return False
+
+def square(turtle_name, length):
+    for _ in range(4):
+        turtle_name.forward(length)
+        turtle_name.right(90)
 
 def many_squares(amount, size, distance):
     global tom
@@ -35,17 +39,28 @@ def many_squares(amount, size, distance):
         tom.pendown()
         print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
         print(visible(tom))
-def square(turtle_name, length):
-    for _ in range(4):
-        turtle_name.forward(length)
-        turtle_name.right(90)
+
+
+def many_squares_spinning(amount, size, distance, spin):
+    global tom
+    for _ in range(amount):
+        square(tom, size)
+        tom.penup()
+        tom.forward(distance)
+        tom.pendown()
+        tom.right(spin)
+        print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+        print(visible(tom))
+
 
 tom = turtle.Turtle()
 tom.speed(0)
 
-many_squares(3, 50, 479)
-turtle.done()
+
+def main():
+    many_squares_spinning(100, 250, 30, 25)
+    turtle.done()
 
 
-# if __name__ == '__main__':  # is this file run as the main program (as opposed to being imported)?
-#     main()
+if __name__ == '__main__':  # is this file run as the main program (as opposed to being imported)?
+    main()
