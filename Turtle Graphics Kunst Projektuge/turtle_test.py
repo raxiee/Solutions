@@ -42,9 +42,6 @@ def many_squares(amount, size, distance):
 
 
 def many_squares_spinning(amount, size, distance, spin):
-    tom.penup()
-    tom.goto(0.00, 75.00)
-    tom.pendown()
     for _ in range(amount):
         square(tom, size)
         tom.penup()
@@ -72,9 +69,6 @@ def many_circles(amount, size, distance):
 
 def many_circles_spinning(amount, size, distance, spin):
     global tom
-    tom.penup()
-    tom.goto(0.00, 200.00)
-    tom.pendown()
     for _ in range(amount):
         circle(tom, size)
         tom.penup()
@@ -175,7 +169,6 @@ def letter_l(start_x, start_y):
     tom.goto(start_x, start_y)
     tom.pendown()
     l_circle(tom,1.5)
-    print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
     tom.goto(start_x + 34.36, start_y - 150)
     l_circle_2(tom, 1.5)
     tom.goto(start_x,start_y)
@@ -183,11 +176,12 @@ def letter_l(start_x, start_y):
     tom.home()
 
 def signature():
-    letter_P(0, -300)
-    letter_e(100, -300)
-    letter_l(200, -100)
-    letter_l(300, -100)
-    letter_e(400, -300)
+    tom.pendown()
+    letter_P(50, -350)
+    letter_e(200, -310)
+    letter_l(220, -185)
+    letter_l(270, -185)
+    letter_e(415, -310)
 
 
 
@@ -197,14 +191,24 @@ tom.speed(0)
 
 
 def main():
-    tom.hideturtle()
+    global tom
+    tom.penup()
+    tom.goto(-220, 100)
+    many_squares_spinning(100, 187.5, 22.5, 25)
+    tom.penup()
+    tom.home()
+    tom.goto(200, 200)
+    tom.pendown()
+    many_circles_spinning(15, 7.5, 75, 25)
+    tom.penup()
+    tom.home()
     signature()
     turtle.done()
 
 
 
 # many_squares_spinning(100, 250, 30, 25) Original spinning squares
-# many_circles_spinning(15, 10, 100, 25) Original spinning circles
+# many_circles_spinning(15, 10, 100, 25) #Original spinning circles
 
 if __name__ == '__main__':  # is this file run as the main program (as opposed to being imported)?
     main()
