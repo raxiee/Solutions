@@ -90,6 +90,11 @@ def half_circle(turtle_name, size):
         turtle_name.forward(size)
         turtle_name.right(5)
 
+def e_circle(turtle_name, size):
+    for _ in range(63):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
 def break_coordinates(turtle_name, x_break, y_break):# Useless, just use turtle.goto instead
     x = int(turtle_name.position()[0])
     y = int(turtle_name.position()[1])
