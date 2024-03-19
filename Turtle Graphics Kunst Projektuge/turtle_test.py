@@ -42,7 +42,9 @@ def many_squares(amount, size, distance):
 
 
 def many_squares_spinning(amount, size, distance, spin):
-    global tom
+    tom.penup()
+    tom.goto(0.00, 75.00)
+    tom.pendown()
     for _ in range(amount):
         square(tom, size)
         tom.penup()
@@ -52,15 +54,50 @@ def many_squares_spinning(amount, size, distance, spin):
         print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
         print(visible(tom))
 
+def circle(turtle_name, size):
+    for _ in range(72):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
+def many_circles(amount, size, distance):
+    global tom
+    for _ in range(amount):
+        circle(tom, size)
+        tom.penup()
+        tom.left(0)
+        tom.forward(distance)
+        tom.pendown()
+        print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+        print(visible(tom))
+
+def many_circles_spinning(amount, size, distance, spin):
+    global tom
+    tom.penup()
+    tom.goto(0.00, 200.00)
+    tom.pendown()
+    for _ in range(amount):
+        circle(tom, size)
+        tom.penup()
+        tom.left(0)
+        tom.forward(distance)
+        tom.pendown()
+        tom.right(spin)
+        print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+        print(visible(tom))
+
+
 
 tom = turtle.Turtle()
 tom.speed(0)
 
 
 def main():
-    many_squares_spinning(100, 250, 30, 25)
+    many_circles_spinning(15, 10, 100, 25)
     turtle.done()
 
+
+# many_squares_spinning(100, 250, 30, 25) Original spinning squares
+# many_circles_spinning(15, 10, 100, 25) Original spinning circles
 
 if __name__ == '__main__':  # is this file run as the main program (as opposed to being imported)?
     main()

@@ -40,7 +40,7 @@ x = 0.0
 y = 0.0
 
 # Set the number of iterations
-iterations = 10000
+iterations = 30000
 
 # Draw Barnsley Fern fractal
 draw_barnsley_fern(iterations)
