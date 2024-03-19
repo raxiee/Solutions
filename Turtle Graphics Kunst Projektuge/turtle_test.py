@@ -107,6 +107,18 @@ def e_circle_2(turtle_name, size):
         turtle_name.forward(size)
         turtle_name.right(5)
 
+def l_circle(turtle_name, size):
+    turtle_name.left(90)
+    for _ in range(37):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
+def l_circle_2(turtle_name, size):
+    for _ in range(37):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
+
 def break_coordinates(turtle_name, x_break, y_break):# Useless, just use turtle.goto instead
     x = int(turtle_name.position()[0])
     y = int(turtle_name.position()[1])
@@ -140,7 +152,6 @@ def letter_P(start_x, start_y):
 
 def letter_e(start_x, start_y):
     global tom
-    tom.hideturtle()
     tom.penup()
     tom.goto(start_x, start_y)
     tom.pendown()
@@ -148,7 +159,6 @@ def letter_e(start_x, start_y):
     tom.left(90)
     tom.forward(20)
     e_circle_2(tom, 2)
-    print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
     tom.goto(start_x, start_y)
     tom.penup()
     tom.goto(start_x - 67.52, start_y + 15)
@@ -158,14 +168,37 @@ def letter_e(start_x, start_y):
     tom.penup()
     tom.home()
 
+def letter_l(start_x, start_y):
+    global tom
+    tom.hideturtle()
+    tom.penup()
+    tom.goto(start_x, start_y)
+    tom.pendown()
+    l_circle(tom,1.5)
+    print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+    tom.goto(start_x + 34.36, start_y - 150)
+    l_circle_2(tom, 1.5)
+    tom.goto(start_x,start_y)
+    tom.penup()
+    tom.home()
+
+def signature():
+    letter_P(0, -300)
+    letter_e(100, -300)
+    letter_l(200, -100)
+    letter_l(300, -100)
+    letter_e(400, -300)
+
+
+
 
 tom = turtle.Turtle()
 tom.speed(0)
 
 
 def main():
-    letter_P(200,-300)
-    letter_e(300,-300)
+    tom.hideturtle()
+    signature()
     turtle.done()
 
 
