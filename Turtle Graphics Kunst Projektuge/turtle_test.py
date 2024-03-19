@@ -85,6 +85,40 @@ def many_circles_spinning(amount, size, distance, spin):
         print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
         print(visible(tom))
 
+def half_circle(turtle_name, size):
+    for _ in range(36):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
+def break_coordinates(turtle_name, x_break, y_break):# Useless, just use turtle.goto instead
+    x = int(turtle_name.position()[0])
+    y = int(turtle_name.position()[1])
+    if x == x_break and y == y_break:
+        turtle_name.forward(0)
+    else:
+        turtle_name.forward(1)
+
+
+def letter_P(start_x, start_y):
+    global tom
+    tom.penup()
+    tom.goto(start_x, start_y)
+    tom.pendown()
+    tom.left(90)
+    tom.forward(170)
+    tom.right(90)
+    tom.forward(20)
+    half_circle(tom,4)
+    tom.left(90)
+    tom.goto(start_x + 24, start_y)
+    tom.goto(start_x, start_y)
+    tom.penup()
+    tom.goto(start_x + 24, start_y + 150)
+    tom.left(87)
+    tom.pendown()
+    half_circle(tom,2)
+    tom.goto(start_x + 24, start_y + 150)
+
 
 
 tom = turtle.Turtle()
@@ -92,8 +126,9 @@ tom.speed(0)
 
 
 def main():
-    many_circles_spinning(15, 10, 100, 25)
+    letter_P(200,-300)
     turtle.done()
+
 
 
 # many_squares_spinning(100, 250, 30, 25) Original spinning squares
