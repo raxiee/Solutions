@@ -90,8 +90,20 @@ def half_circle(turtle_name, size):
         turtle_name.forward(size)
         turtle_name.right(5)
 
+def half_circle_2(turtle_name, size):
+    for _ in range(33):
+        turtle_name.forward(size)
+        turtle_name.right(5)
+
 def e_circle(turtle_name, size):
-    for _ in range(63):
+    turtle_name.left(90)
+    for _ in range(66):
+        turtle_name.forward(size)
+        turtle_name.left(5)
+
+def e_circle_2(turtle_name, size):
+    turtle_name.left(90)
+    for _ in range(32):
         turtle_name.forward(size)
         turtle_name.right(5)
 
@@ -123,7 +135,28 @@ def letter_P(start_x, start_y):
     tom.pendown()
     half_circle(tom,2)
     tom.goto(start_x + 24, start_y + 150)
+    tom.penup()
+    tom.home()
 
+def letter_e(start_x, start_y):
+    global tom
+    tom.hideturtle()
+    tom.penup()
+    tom.goto(start_x, start_y)
+    tom.pendown()
+    e_circle(tom, 4)
+    tom.left(90)
+    tom.forward(20)
+    e_circle_2(tom, 2)
+    print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+    tom.goto(start_x, start_y)
+    tom.penup()
+    tom.goto(start_x - 67.52, start_y + 15)
+    tom.pendown()
+    half_circle_2(tom,2)
+    tom.goto(start_x - 67.52, start_y + 15)
+    tom.penup()
+    tom.home()
 
 
 tom = turtle.Turtle()
@@ -132,6 +165,7 @@ tom.speed(0)
 
 def main():
     letter_P(200,-300)
+    letter_e(300,-300)
     turtle.done()
 
 
