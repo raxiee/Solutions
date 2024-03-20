@@ -50,10 +50,12 @@ Fortsæt derefter med den næste fil.
 import turtle  # this imports a library called "turtle". A library is (someone else's) python code, that you can use in your own program.
 
 def visible(turtle_name):
-    x = turtle_name.position()[0]
-    y = turtle_name.position()[1]
+    x = int(turtle_name.position()[0])
+    y = int(turtle_name.position()[1])
     if x in range(-480, 480) and y in range(-480, 480):
-        return 0
+        return True
+    else:
+        return False
 
 
     # returns true if both the x- and y-value of the turtle's position are between -480 and 480
@@ -67,7 +69,6 @@ def many_squares(turtle, amount, size, distance):
         turtle.penup()
         turtle.forward(distance)
         turtle.pendown()
-
 
 
 def demo():  # demonstration of basic turtle commands
@@ -89,19 +90,36 @@ def demo():  # demonstration of basic turtle commands
     tom.home()  # return to the original position in the middle of the window
     turtle.done()  # keeps the turtle window open after the program is done
 
-# demo()
 # Del 1
 def square(turtle, length):
     for _ in range(4):
         turtle.forward(length)
         turtle.right(90)
 
-# square(480)
-# turtle.done()
-# visible(tom)
+def spiral(turtle, length):
+    for _ in range(200):
+        length *= 1.05
+        turtle.forward(length)
+        turtle.left(90)
+
+def star(turtle, turns, length):
+    turtle.right(75)
+    for _ in range(turns):
+        turtle.forward(length)
+        turtle.right(150)
+
+def star_uli(turtle, turns, length):
+    angle = 180 - 180 / turns
+    for _ in range(turns):
+        turtle.forward(length)
+        turtle.right(angle)
+
 
 tom = turtle.Turtle()
-tom.speed(1)
+tom.speed(0)
 
-many_squares(tom,3, 50, 100)
-turtle.done()
+def main():
+    star_uli(tom, 8, 100)
+    turtle.done()
+
+main()
