@@ -27,6 +27,8 @@ def many_squares(amount, size, distance):
 
 def many_squares_spinning(amount, size, distance, spin):
     for _ in range(amount):
+        print(f'Tom is now at {tom.position()}, x-value: {tom.position()[0]=:.2f}, y-value: {tom.position()[1]=:.2f}')
+        purple_blue(tom)
         square(tom, size)
         tom.penup()
         tom.forward(distance)
@@ -49,13 +51,23 @@ def many_circles(amount, size, distance):
 
 def many_circles_spinning(amount, size, distance, spin):
     global tom
-    for _ in range(amount):
-        circle(tom, size)
-        tom.penup()
-        tom.left(0)
-        tom.forward(distance)
-        tom.pendown()
-        tom.right(spin)
+    for i in range(amount):
+        if (i % 2) == 0:
+            tom.pencolor(0, 0, 255)
+            circle(tom, size)
+            tom.penup()
+            tom.left(0)
+            tom.forward(distance)
+            tom.pendown()
+            tom.right(spin)
+        else:
+            tom.pencolor(160, 32, 240)
+            circle(tom, size)
+            tom.penup()
+            tom.left(0)
+            tom.forward(distance)
+            tom.pendown()
+            tom.right(spin)
 
 def half_circle(turtle_name, size):
     for _ in range(36):
@@ -154,11 +166,21 @@ def letter_l(start_x, start_y):
 
 def signature():
     tom.pendown()
-    letter_P(50, -420)
-    letter_e(200, -380)
-    letter_l(220, -255)
-    letter_l(270, -255)
-    letter_e(415, -380)
+    letter_P(200 * 1.45, -420)
+    letter_e(350 * 1.25, -380)
+    letter_l(370 * 1.25, -255)
+    letter_l(420 * 1.25, -255)
+    letter_e(565 * 1.19, -380)
+
+def purple_blue(turtle_name):
+    y = int(turtle_name.ycor())
+    turtle.colormode(255)
+    if y in range(-100, 14):
+        turtle_name.pencolor(0, 0, 255)
+    elif y in range(15, 80):
+        turtle_name.pencolor(160, 32, 240)
+    else:
+        turtle_name.pencolor(130, 170, 255)
 
 
 tom = turtle.Turtle()
@@ -174,6 +196,7 @@ def main():
     tom.goto(350, 260)
     tom.pendown()
     many_circles_spinning(15, 7.5 * 1.4, 75 * 1.4, 25)
+    tom.pencolor(0, 0, 0)
     tom.penup()
     tom.home()
     signature()
