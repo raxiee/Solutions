@@ -1,5 +1,7 @@
 import turtle  # this imports a library called "turtle". A library is (someone else's) python code, that you can use in your own program.
 
+turtle.setup(width=1400, height=900)
+
 # My stuff here
 def visible(turtle_name):
     x = int(turtle_name.position()[0])
@@ -152,11 +154,11 @@ def letter_l(start_x, start_y):
 
 def signature():
     tom.pendown()
-    letter_P(50, -350)
-    letter_e(200, -310)
-    letter_l(220, -185)
-    letter_l(270, -185)
-    letter_e(415, -310)
+    letter_P(50, -420)
+    letter_e(200, -380)
+    letter_l(220, -255)
+    letter_l(270, -255)
+    letter_e(415, -380)
 
 
 tom = turtle.Turtle()
@@ -165,13 +167,13 @@ tom.speed(0)
 def main():
     global tom
     tom.penup()
-    tom.goto(-220, 100)
-    many_squares_spinning(100, 187.5, 22.5, 25)
+    tom.goto(-370, 100)
+    many_squares_spinning(100, 187.5 * 1.4, 22.5 * 1.4, 25)
     tom.penup()
     tom.home()
-    tom.goto(200, 200)
+    tom.goto(350, 260)
     tom.pendown()
-    many_circles_spinning(15, 7.5, 75, 25)
+    many_circles_spinning(15, 7.5 * 1.4, 75 * 1.4, 25)
     tom.penup()
     tom.home()
     signature()
