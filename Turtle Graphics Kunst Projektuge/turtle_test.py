@@ -174,7 +174,7 @@ def signature():
     letter_e(565 * 1.19, -380)
 
 def purple_blue(turtle_name):
-    y = int(turtle_name.ycor())
+    y = int(turtle_name.ycor())#hej
     turtle.colormode(255)
     if y in range(-100, 14):
         turtle_name.pencolor(0, 0, 255)
