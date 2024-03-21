@@ -40,6 +40,7 @@ def circle(turtle_name, size):
         turtle_name.forward(size)
         turtle_name.right(5)
 
+
 def many_circles(amount, size, distance):
     global tom
     for _ in range(amount):
