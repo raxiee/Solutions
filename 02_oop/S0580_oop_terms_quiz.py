@@ -37,7 +37,7 @@ class Skyscraper(Building):  # Inheritance, 'Skyscraper' er nu en child class ti
 
 
 small_house = Building(160, 2, 200000)  # Object definition, 'small_house' er nu et object af class 'Building'
-skyscraper = Skyscraper(5000, 25, 10000000)  # Object definition, , 'skyscraper' er nu et object af class 'Skyscraper'
+skyscraper = Skyscraper(5000, 25, 10000000)  # Object definition, 'skyscraper' er nu et object af class 'Skyscraper'
 
 for building in [small_house, skyscraper]:  # for-loop, der gør noget for hver ting i listen
     print(f'This building has {building.floors} floors and an area of {building.area} square meters.')  # Virker for begge, da 'Skyscraper' også er en 'Building'
