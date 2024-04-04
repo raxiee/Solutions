@@ -124,13 +124,13 @@ def morris_functional_alcoholic(turns, sleepiness=0, thirst=0, hunger=0, whiskey
         elif gold < 0:
             print('Oh no, you bankrupted poor Morris! When you caused him to go broke after', i, '/', turns, 'turns, he had', gold, 'gold\n\n' 'His attributes were at the following levels:')
             break
-        elif sleepiness >= 95:
+        elif sleepiness >= 90:
             sleepiness, thirst, hunger, whiskey, gold = sleep(sleepiness, thirst, hunger, whiskey, gold)
-        elif thirst >= 95:
+        elif thirst >= 90:
             if whiskey < 1:
                 sleepiness, thirst, hunger, whiskey, gold = buy_whiskey(sleepiness, thirst, hunger, whiskey, gold)
             sleepiness, thirst, hunger, whiskey, gold = drink(sleepiness, thirst, hunger, whiskey, gold)
-        elif hunger >= 95:
+        elif hunger >= 90:
             sleepiness, thirst, hunger, whiskey, gold = eat(sleepiness, thirst, hunger, whiskey, gold)
         else:
             sleepiness, thirst, hunger, whiskey, gold = mine(sleepiness, thirst, hunger, whiskey, gold)
@@ -138,7 +138,7 @@ def morris_functional_alcoholic(turns, sleepiness=0, thirst=0, hunger=0, whiskey
     return sleepiness, thirst, hunger, whiskey, gold, turns, turns_done
 
 def main():
-    sleepiness, thirst, hunger, whiskey, gold, turns, turns_done = morris_in_recovery(1000)
+    sleepiness, thirst, hunger, whiskey, gold, turns, turns_done = morris_functional_alcoholic(1000)
     print('Morris ended the game with', gold, 'gold after', turns_done, 'turns.\n\n' 'His attributes were at the following levels:')
     print_attributes(sleepiness, thirst, hunger, whiskey, gold)
 
