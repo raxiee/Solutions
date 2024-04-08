@@ -14,7 +14,7 @@ Tilføj oop-relaterede kommentarer til denne kode.
 """
 
 
-class Building:  # Mlass definition
+class Building:  # Class definition
     def __init__(self, area, floors, value):  # Constructor, magic function hvilket ses ved brug af to underscores før og efter
         self.area = area  # Attribute
         self.floors = floors  # Attribute
