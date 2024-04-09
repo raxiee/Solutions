@@ -58,6 +58,7 @@ Når dit program er færdigt, skal du skubbe det til dit github-repository.
 Send derefter denne Teams-meddelelse til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil."""
 
+import random
 
 class Animal:
     def __init__(self, name, sound, height, weight, legs, female):
@@ -68,14 +69,15 @@ class Animal:
         self.legs = int(legs)
         self.female = bool(female)
 
-
     def make_noise(self):
         # return f'\n{self.name} makes the noise {self.sound}! What a good {'girl' if self.female else 'boy'}.'
         print(f'\n{self.name} makes the noise {self.sound}! What a good {'girl' if self.female else 'boy'}.')
 
-
     def __repr__(self):
-        return f'{self.name} is an animal\n\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height} cm\nWeight: {self.weight} kg\nLegs: {self.legs}\nFemale: {self.female}'
+        return (
+            f'{self.name} is an animal.\n\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height} cm\nWeight: {self.weight} kg\n'
+            f'Legs: {self.legs}\nFemale: {self.female}'
+        )
 
 class Dog(Animal):
     def __init__(self, name, sound, height, weight, legs, female, tail_length, hunts_sheep):
@@ -83,11 +85,46 @@ class Dog(Animal):
         self.tail_length = float(tail_length)
         self.hunts_sheep = bool(hunts_sheep)
 
+    def __repr__(self):
+        return (
+            f'{self.name} is a Dog.\n\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height} cm\nWeight: {self.weight} kg\n'
+            f'Legs: {self.legs}\nFemale: {self.female}\nTail length: {self.tail_length}\nHunts Sheep: {self.hunts_sheep}'
+        )
+
+    def wag_tail(self):
+        print(f'\nThe dog, {self.name}, wags {'her' if self.female else 'his'} {self.tail_length} cm long tail.')
+
+    def mate(mother, father):
+        minimum = 0
+        maximum = 1
+        puppy_name = 'Alex'
+        puppy_sound = f'{mother.sound}{father.sound}!'
+        puppy_height = (mother.height + father.height) / 2
+        puppy_weight = (mother.weight + father.weight) / 2
+        puppy_legs = (mother.legs + father.legs) // 2
+        puppy_female = random.randint(minimum, maximum)
+        puppy_tail_length = (mother.tail_length + father.tail_length) / 2
+        puppy_hunts_sheep = random.randint(minimum, maximum)
+        if mother.female and not father.female:
+            print(f'\n{mother.name} and {father.name} mated. It was a {'girl' if puppy_female else 'boy'} named Alex!\n')
+            return Dog(puppy_name, puppy_sound, puppy_height, puppy_weight, puppy_legs, puppy_female, puppy_tail_length, puppy_hunts_sheep)
+        else:
+            print("\nThat's not how this works.. maybe it's time for a talk about the birds and the bees?")
+
+    def __add__(mother, father):
+        puppy = Dog.mate(mother, father)
+        return puppy
 
 def main():
-    jeff = Animal('Jeff', 'brrrrr', 55.4, 32.5, 4, 0)
+    jeff = Dog('Jeff', 'brrrrr', 55.4, 32.5, 4, 0, 12.5, 1)
+    sophie = Dog('Sophie', 'skrt', 33.5, 27.9, 3, 1, 10.2, 1)
     print(jeff)
     # print(jeff.make_noise())
     jeff.make_noise()
+    jeff.wag_tail()
+    # puppy = Dog.mate(sophie, jeff)
+    puppy = sophie + jeff
+    print(puppy)
+
 
 main()
