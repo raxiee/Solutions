@@ -60,6 +60,7 @@ Fortsæt derefter med den næste fil."""
 
 import random
 
+
 class Animal:
     def __init__(self, name, sound, height, weight, legs, female):
         self.name = str(name)
@@ -78,6 +79,7 @@ class Animal:
             f'{self.name} is an animal.\n\nName: {self.name}\nSound: {self.sound}\nHeight: {self.height} cm\nWeight: {self.weight} kg\n'
             f'Legs: {self.legs}\nFemale: {self.female}'
         )
+
 
 class Dog(Animal):
     def __init__(self, name, sound, height, weight, legs, female, tail_length, hunts_sheep):
@@ -106,14 +108,17 @@ class Dog(Animal):
         puppy_tail_length = (mother.tail_length + father.tail_length) / 2
         puppy_hunts_sheep = random.randint(minimum, maximum)
         if mother.female and not father.female:
-            print(f'\n{mother.name} and {father.name} mated. It was a {'girl' if puppy_female else 'boy'} named Alex!\n')
-            return Dog(puppy_name, puppy_sound, puppy_height, puppy_weight, puppy_legs, puppy_female, puppy_tail_length, puppy_hunts_sheep)
+            print(
+                f'\n{mother.name} and {father.name} mated. It was a {'girl' if puppy_female else 'boy'} named Alex!\n')
+            return Dog(puppy_name, puppy_sound, puppy_height, puppy_weight, puppy_legs, puppy_female, puppy_tail_length,
+                       puppy_hunts_sheep)
         else:
             print("\nThat's not how this works.. maybe it's time for a talk about the birds and the bees?")
 
     def __add__(mother, father):
         puppy = Dog.mate(mother, father)
         return puppy
+
 
 def main():
     jeff = Dog('Jeff', 'brrrrr', 55.4, 32.5, 4, 0, 12.5, 1)

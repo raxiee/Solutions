@@ -38,3 +38,50 @@ og sammenlign det med lærerens løsning i S0730_rpg1_solution.py
 Send derefter denne Teams-besked til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil."""
 
+
+class Character:
+    def __init__(self, name, health, attackpower):
+        self.name = name
+        self.max_health = health
+        self._current_health = health
+        self.attackpower = attackpower
+
+    def __repr__(self):
+        return f'Name: {self.name}\nMax health: {self.max_health}\nCurrent health: {self._current_health}\nAttackpower: {self.attackpower}\n'
+
+    # def hit_without_get_hit(self, target):
+    #     if isinstance(target, Character):
+    #         target._current_health -= self.attackpower
+
+    def hit(self, target):
+        print(f'{self.name} strikes {target.name} for {self.attackpower} damage!\n')
+        target.get_hit(self.attackpower)
+
+    def get_hit(self, attackpower):
+        self._current_health -= attackpower
+
+    def get_healed(self, healpower):
+        self._current_health += healpower
+
+class Healer(Character):
+    def __init__(self, name, health, healpower):
+        super().__init__(name, health, attackpower=0)
+        self.healpower = healpower
+
+    def heal(self, target):
+        print(f'{self.name} heals {target.name} for {self.healpower} health!\n')
+        target.get_healed(self.healpower)
+
+
+def main():
+    char1 = Character('Timothy', 80, 10)
+    char2 = Character('Christopher', 80, 10)
+    char3 = Healer('Leona', 80, 10)
+    print(f"Christopher's current health: {char2._current_health}")
+    char1.hit(char2)
+    print(f"Christopher's current health: {char2._current_health}")
+    char3.heal(char2)
+    print(f"Christopher's current health: {char2._current_health}")
+
+
+main()
