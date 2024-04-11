@@ -52,8 +52,9 @@ class Character:
     def hit(self, target):
         minimum = int(self.attackpower * 0.5)
         maximum = int(self.attackpower * 1.5)
-        print(f'{self.name} strikes {target.name} for {random.randint(minimum, maximum)} damage!\n')
-        target.get_hit(random.randint(minimum, maximum))
+        damage = random.randint(minimum, maximum)
+        print(f'{self.name} strikes {target.name} for {damage} damage!\n')
+        target.get_hit(damage)
 
     def get_hit(self, attackpower):
         self._current_health -= attackpower
@@ -99,18 +100,26 @@ class Hunter(Character):
         maximum = int(self.attackpower * 1.5)
         minimum_pet = int(self.pet_attackpower * 0.5)
         maximum_pet = int(self.pet_attackpower * 1.5)
-        print(f"{self.name} strikes {target.name} for {random.randint(minimum, maximum)} damage, and their pet, "
+        damage = random.randint(minimum, maximum)
+        pet_damage = random.randint(minimum_pet, maximum_pet)
+        print(f"{self.name} strikes {target.name} for {damage} damage, and their pet, "
               f"{self.pet_name}, strikes {target.name} for an additional {random.randint(minimum_pet, maximum_pet)} damage!\n")
-        target.get_hit(random.randint(minimum_pet, maximum_pet))
-        target.get_hit(random.randint(minimum, maximum))
+        target.get_hit(pet_damage)
+        target.get_hit(damage)
 
     def bestial_wrath(self, target):
+        minimum = int(self.attackpower * 0.5)
+        maximum = int(self.attackpower * 1.5)
+        minimum_pet = int(self.pet_attackpower * 0.5)
+        maximum_pet = int(self.pet_attackpower * 1.5)
+        damage = random.randint(minimum, maximum)
+        pet_damage = random.randint(minimum_pet, maximum_pet)
         print(f"{self.name} and {self.pet_name} are enraged by their inner beasts, causing their damage to be doubled this turn! "
               f"Bestial wrath is now on cooldown for 5 turns.\n")
-        target.get_hit(self.pet_attackpower * 2)
-        target.get_hit(self.attackpower * 2)
-        print(f"{self.name} strikes {target.name} for {self.attackpower * 2} damage, and their pet, "
-              f"{self.pet_name}, strikes {target.name} for {self.pet_attackpower * 2} damage!\n")
+        target.get_hit(damage * 2)
+        target.get_hit(pet_damage * 2)
+        print(f"{self.name} strikes {target.name} for {damage * 2} damage, and their pet, "
+              f"{self.pet_name}, strikes {target.name} for {pet_damage * 2} damage!\n")
 
 def battle(char1, char2):
     print(f"A battle between the fierce {char1.name} and the ruthless {char2.name} is about to commence...\n")
@@ -128,17 +137,6 @@ def battle(char1, char2):
             char1.bestial_wrath_cooldown -= 1
         if isinstance(char2, Hunter) and hasattr(char2, 'bestial_wrath_cooldown') and char2.bestial_wrath_cooldown > 0:
             char2.bestial_wrath_cooldown -= 1
-
-        # if char1._current_health <= 0:
-        #     print(f"{char1.name} has been defeated, and {char2.name} is victorious with "
-        #           f"{char2._current_health} health remaining after {turns} turns! Are you not entertained?!?")
-        #     break
-        #
-        # if char2._current_health <= 0:
-        #     print(f"{char2.name} has been defeated, and {char1.name} is victorious with "
-        #           f"{char1._current_health} health remaining after {turns} turns! Are you not entertained?!?")
-        #     break
-
         if isinstance(char1, Mage) and char1.polymorph_cooldown == 0 and char1.attackcooldown == 0:
             char1.polymorph(char2)
             char1.polymorph_cooldown += 6
@@ -164,15 +162,37 @@ def battle(char1, char2):
 
         turns += 1
 
-    print(f"The battle lasted {turns} turns! Are you not entertained?!?\n")
+    print(f"The battle lasted {turns} turns.\n")
     print(f"Final health of {char1.name}: {char1._current_health}")
-    print(f"Final health of {char2.name}: {char2._current_health}")
+    print(f"Final health of {char2.name}: {char2._current_health}\n")
+    if char1._current_health <= 0 and char2._current_health <= 0:
+        print(f'Both gladiators were killed in battle, resulting in a draw. Are you not entertained?!?\n')
+    elif char2._current_health <= 0:
+        print(f'{char1.name} is victorious! Are you not entertained?!?\n')
+    elif char1._current_health <= 0:
+        print(f'{char2.name} is victorious! Are you not entertained?!?\n')
+
+def many_battles(battles):
+    char_1_wins = 0
+    char_2_wins = 0
+    draws = 0
+    for _ in range(battles):
+        char_1 = Hunter('Timothy', 250, 10, 'Pedro')
+        char_2 = Mage('Christopher', 239, 16)
+        battle(char_1, char_2)
+        if char_1._current_health <= 0 and char_2._current_health <= 0:
+            draws += 1
+        elif char_2._current_health <= 0:
+            char_1_wins += 1
+        elif char_1._current_health <= 0:
+            char_2_wins += 1
+
+    print(f'The {battles} battles between {char_1.name} and {char_2.name} have concluded.\n\nTotal wins\n\n{char_1.name}:'
+          f' {char_1_wins}\n{char_2.name}: {char_2_wins}\nDraws: {draws}')
 
 
 def main():
-    char_1 = Hunter('Timothy', 250, 10, 'Pedro')
-    char_2 = Mage('Christopher', 250, 16)
-    battle(char_1, char_2)
+    many_battles(100)
 
 
 main()
