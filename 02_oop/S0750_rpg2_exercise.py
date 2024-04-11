@@ -95,6 +95,11 @@ class Hunter(Character):
         if self.bestial_wrath_cooldown < 0:
             self.bestial_wrath_cooldown = 0
 
+    def update_cooldown(self):
+        # if self.bestial_wrath_cooldown > 0:
+        #     self.bestial_wrath_cooldown -= 1
+        self.bestial_wrath_cooldown = max(0, self.bestial_wrath_cooldown - 1)
+
     def hit(self, target):
         minimum = int(self.attackpower * 0.5)
         maximum = int(self.attackpower * 1.5)
