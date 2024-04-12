@@ -50,9 +50,7 @@ class Character:
     #         target._current_health -= self.attackpower
 
     def hit(self, target):
-        minimum = int(self.attackpower * 0.5)
-        maximum = int(self.attackpower * 1.5)
-        damage = random.randint(minimum, maximum)
+        damage = self.calculate_damage()
         print(f'{self.name} strikes {target.name} for {damage} damage!\n')
         target.get_hit(damage)
 
@@ -66,6 +64,12 @@ class Character:
 
     def update_cooldown(self):
         pass
+
+    def calculate_damage(self):
+        minimum = int(self.attackpower * 0.5)
+        maximum = int(self.attackpower * 1.5)
+        damage = random.randint(minimum, maximum)
+        return damage
 
 
 class Healer(Character):
@@ -105,24 +109,23 @@ class Hunter(Character):
         self.bestial_wrath_cooldown = max(0, self.bestial_wrath_cooldown - 1)
 
     def hit(self, target):
-        minimum = int(self.attackpower * 0.5)
-        maximum = int(self.attackpower * 1.5)
-        minimum_pet = int(self.pet_attackpower * 0.5)
-        maximum_pet = int(self.pet_attackpower * 1.5)
-        damage = random.randint(minimum, maximum)
-        pet_damage = random.randint(minimum_pet, maximum_pet)
+        damage, pet_damage = self.calculate_damage()
         print(f"{self.name} strikes {target.name} for {damage} damage, and their pet, "
-              f"{self.pet_name}, strikes {target.name} for an additional {random.randint(minimum_pet, maximum_pet)} damage!\n")
+              f"{self.pet_name}, strikes {target.name} for an additional {pet_damage} damage!\n")
         target.get_hit(pet_damage)
         target.get_hit(damage)
 
-    def bestial_wrath(self, target):
+    def calculate_damage(self):
         minimum = int(self.attackpower * 0.5)
         maximum = int(self.attackpower * 1.5)
         minimum_pet = int(self.pet_attackpower * 0.5)
         maximum_pet = int(self.pet_attackpower * 1.5)
         damage = random.randint(minimum, maximum)
         pet_damage = random.randint(minimum_pet, maximum_pet)
+        return damage, pet_damage
+
+    def bestial_wrath(self, target):
+        damage, pet_damage = self.calculate_damage()
         print(f"{self.name} and {self.pet_name} are enraged by their inner beasts, causing their damage to be doubled this turn! "
               f"Bestial wrath is now on cooldown for 5 turns.\n")
         target.get_hit(damage * 2)
@@ -138,14 +141,8 @@ def battle(char1, char2):
             char1.attackcooldown -= 1
         if char2.attackcooldown > 0:
             char2.attackcooldown -= 1
-        if isinstance(char1, Mage) and hasattr(char1, 'polymorph_cooldown') and char1.polymorph_cooldown > 0:
-            char1.polymorph_cooldown -= 1
-        if isinstance(char2, Mage) and hasattr(char2, 'polymorph_cooldown') and char2.polymorph_cooldown > 0:
-            char2.polymorph_cooldown -= 1
-        if isinstance(char1, Hunter) and hasattr(char1, 'bestial_wrath_cooldown') and char1.bestial_wrath_cooldown > 0:
-            char1.bestial_wrath_cooldown -= 1
-        if isinstance(char2, Hunter) and hasattr(char2, 'bestial_wrath_cooldown') and char2.bestial_wrath_cooldown > 0:
-            char2.bestial_wrath_cooldown -= 1
+        char1.update_cooldown()
+        char2.update_cooldown()
         if isinstance(char1, Mage) and char1.polymorph_cooldown == 0 and char1.attackcooldown == 0:
             char1.polymorph(char2)
             char1.polymorph_cooldown += 6

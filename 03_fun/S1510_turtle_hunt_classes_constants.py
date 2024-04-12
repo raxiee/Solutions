@@ -121,7 +121,7 @@ class Pelle(turtle.Turtle):
 
 
 # change these global constants only for debugging purposes:
-MAX_TURNS = 100       # Maximum number of turns in a hunt.                           In competition: probably 200.
+MAX_TURNS = 200       # Maximum number of turns in a hunt.                           In competition: probably 200.
 ROUNDS = 1            # Each player plays the prey this often.                       In competition: probably 10.
 STEP_SIZE = 3         # Distance each turtle moves in one turn.                      In competition: probably 3.
 SPEED = 0             # Fastest: 10, slowest: 1, max speed: 0.                       In competition: probably 0.
