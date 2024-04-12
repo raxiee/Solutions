@@ -107,9 +107,10 @@ class Pelle(turtle.Turtle):
         # if distance(self.position(), positions[0]) and direction(self.position(), positions[0])
         if direction(self.position(), positions[0]) < self.orientation:
             degree = (self.orientation - direction(self.position(), positions[0]))
-
+            degree = degree * 1
         elif direction(self.position(), positions[0]) > self.orientation:
             degree = (direction(self.position(), positions[0]) - self.orientation)
+            # print(degree)
 
         else:
             degree = 0
@@ -118,6 +119,8 @@ class Pelle(turtle.Turtle):
         self.orientation += degree
         self.orientation %= 360
         # print(self.orientation)
+        if self.position()[1] > 180:
+            print(degree)
         return degree
 
 
