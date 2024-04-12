@@ -64,6 +64,9 @@ class Character:
     def get_healed(self, healpower):
         self._current_health += healpower
 
+    def update_cooldown(self):
+        pass
+
 
 class Healer(Character):
     def __init__(self, name, health, healpower):
@@ -86,6 +89,9 @@ class Mage(Character):
               f'Polymorph is now on cooldown for 5 turns.\n')
         target.attackcooldown += 3
 
+    def update_cooldown(self):
+        self.polymorph_cooldown = max(0, self.polymorph_cooldown - 1)
+
 class Hunter(Character):
     def __init__(self, name, health, attackpower, pet_name):
         super().__init__(name, health, attackpower)
@@ -96,8 +102,6 @@ class Hunter(Character):
             self.bestial_wrath_cooldown = 0
 
     def update_cooldown(self):
-        # if self.bestial_wrath_cooldown > 0:
-        #     self.bestial_wrath_cooldown -= 1
         self.bestial_wrath_cooldown = max(0, self.bestial_wrath_cooldown - 1)
 
     def hit(self, target):

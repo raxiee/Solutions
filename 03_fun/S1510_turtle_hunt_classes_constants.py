@@ -103,24 +103,13 @@ class Pelle(turtle.Turtle):
     def rotate_hunter(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
         # Example for use of the service functions distance() and direction
         # print(f'{distance(self.position(), positions[0])=}   {direction(self.position(), positions[0])=}')  # print distance and direction from the current hunter to the prey
-
-        # if distance(self.position(), positions[0]) and direction(self.position(), positions[0])
-        if direction(self.position(), positions[0]) < self.orientation:
-            degree = (self.orientation - direction(self.position(), positions[0]))
-            degree = degree * 1
-        elif direction(self.position(), positions[0]) > self.orientation:
-            degree = (direction(self.position(), positions[0]) - self.orientation)
-            # print(degree)
-
-        else:
-            degree = 0
-
+        degree = (direction(self.position(), positions[0]) - self.orientation)
         # When the turtle rotates the same amount each turn,  it will just run in a circle. Make this function smarter!
         self.orientation += degree
         self.orientation %= 360
         # print(self.orientation)
-        if self.position()[1] > 180:
-            print(degree)
+        # if self.position()[1] > 180:
+        #     print(degree)
         return degree
 
 
