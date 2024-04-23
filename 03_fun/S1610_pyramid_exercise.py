@@ -34,31 +34,19 @@ Send derefter denne Teams-meddelelse til din lærer: <filename> færdig
 Fortsæt derefter med den næste fil."""
 
 def pyramid(lines):
+    last_line = [1, 1]
+    new_line = []
+    line_number = 2
     for i in range(lines):
-        i += 1
-        if i > 1:
-            print(f"{1}{i}{1} Sum = {1 + i + 1}")
-        else:
-            print(f"{1}{1} Sum = {1 + 1}")
-
-def generate_pattern(lines):
-    result = ["11"]  # Start with the first line "11"
-    for line_number in range(2, lines + 1):  # Loop through each line starting from the second line
-        prev_line = result[-1]  # Get the previous line
-        new_line = prev_line[0]  # Start the new line with the first character from the previous line
-        for i in range(len(prev_line) - 1):
-            if prev_line[i] == prev_line[i + 1]:  # If adjacent characters are equal
-                new_line += str(line_number)  # Insert the line number between them
-                if i + 1 == len(prev_line) - 1 or prev_line[i + 1] != prev_line[i + 2]:
-                    new_line += prev_line[i + 1]  # Append the next character from the previous line if it's not equal to the character next to it
-            else:
-                new_line += prev_line[i + 1]  # Append the next character from the previous line
-        insert_index = line_number - 1 + line_number - 2  # Calculate the insertion index
-        result.insert(insert_index, new_line)  # Insert the new line at the appropriate position in the result list
-    return "\n".join(result)
+        print(f"{last_line[:-1]=}, {last_line[1:]=}")
+        for left, right in zip(last_line[:-1], last_line[1:]):
+            print(f"{left=} {right=}")
+            new_line.append(left)
+            if left + right == line_number:
+                new_line.append(line_number)
+            new_line.append(right)
+            print(f"{new_line=}")
+            line_number += 1
 
 
-lines = 4
-print(generate_pattern(lines))
-
-
+pyramid(2)
