@@ -36,17 +36,17 @@ Fortsæt derefter med den næste fil."""
 def pyramid(lines):
     last_line = [1, 1]
     new_line = []
-    line_number = 2
-    for i in range(lines):
-        print(f"{last_line[:-1]=}, {last_line[1:]=}")
+    for i in range(2, lines + 1):
+        # print(f"{last_line[:-1]=}, {last_line[1:]=}")
         for left, right in zip(last_line[:-1], last_line[1:]):
-            print(f"{left=} {right=}")
+            # print(f"{left=} {right=}")
             new_line.append(left)
-            if left + right == line_number:
-                new_line.append(line_number)
-            new_line.append(right)
-            print(f"{new_line=}")
-            line_number += 1
+            if left + right == i:
+                new_line.append(i)
+        new_line.append(last_line[-1])
+        print(f"{new_line=}")
+        last_line = new_line
+        new_line = []
 
 
-pyramid(2)
+pyramid(5)
