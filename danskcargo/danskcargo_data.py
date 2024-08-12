@@ -8,7 +8,7 @@ class Base:
 
 
 class Container(Base):
-    __tablename__ = "container"
+    __tablename__ = "container"  # name of table in SQL database
     id = Column(Integer, primary_key=True)
     weight = Column(Integer)
     destination = Column(String)
