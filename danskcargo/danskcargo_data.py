@@ -2,9 +2,9 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column
 from sqlalchemy import String, Integer
 
-class Base:
-    # The next 2 lines are needed _before_ data classes / sql tables are defined
-    Base = declarative_base()  # creating the registry and declarative base classes - combined into one step. Base will serve as the base class for the ORM mapped classes we declare.
+
+# The next 2 lines are needed _before_ data classes / sql tables are defined
+Base = declarative_base()  # creating the registry and declarative base classes - combined into one step. Base will serve as the base class for the ORM mapped classes we declare.
 
 
 class Container(Base):
