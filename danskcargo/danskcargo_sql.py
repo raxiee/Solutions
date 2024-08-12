@@ -46,7 +46,7 @@ if __name__ == "__main__":  # Executed when invoked directly
 # The next 2 lines are needed _after_ data classes / sql tables were defined
     engine = create_engine(Database, echo=False, future=True)
     Base.metadata.create_all(engine)
-    create_test_data()
+    # create_test_data()
     print(select_all(Container))
     print(get_record(Container, 2))
 else:  # Executed when imported
