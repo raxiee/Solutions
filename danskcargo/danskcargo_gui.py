@@ -41,6 +41,26 @@ def edit_container(_, tree):  # Copy selected tuple into entry boxes. Parameter 
 # endregion container functions
 
 # region common functions
+def read_table(tree, class_):  # fill tree from database
+    count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
+    result = dcsql.select_all(class_)  # Read all containers from database
+    for record in result:
+        if record.valid():  # this condition excludes soft deleted records from being shown in the data table
+            if count % 2 == 0:  # even
+               tree.insert(parent='', index='end', iid=str(count), text='', values=record.convert_to_tuple(), tags=('evenrow',))  # Insert one row into the data table
+            else:  # odd
+               tree.insert(parent='', index='end', iid=str(count), text='', values=record.convert_to_tuple(), tags=('oddrow',))  # Insert one row into the data table
+            count += 1
+
+def empty_treeview(tree):  # Clear treeview table
+    tree.delete(*tree.get_children())
+
+
+def refresh_treeview(tree, class_):  # Refresh treeview table
+    empty_treeview(tree)  # Clear treeview table
+    read_table(tree, class_)  # Fill treeview from database
+
+
 # endregion common functions
 
 # region common widgets
@@ -65,6 +85,7 @@ tree_scroll_container.config(command=tree_container.yview)
 
 # Define the data table's formatting and content
 tree_container['columns'] = ("id", "weight", "destination")  # Define columns
+tree_container.bind("<ButtonRelease-1>", lambda event: edit_container(event, tree_container))  # Define function to be called, when an item is selected.
 tree_container.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
 tree_container.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
 tree_container.column("weight", anchor=tk.E, width=80)
@@ -113,12 +134,13 @@ button_update_container = ttk.Button(button_frame_container, text="Update")
 button_update_container.grid(row=0, column=2, padx=padx, pady=pady)
 button_delete_container = ttk.Button(button_frame_container, text="Delete")
 button_delete_container.grid(row=0, column=3, padx=padx, pady=pady)
-button_clear_boxes = ttk.Button(button_frame_container, text="Clear Entry Boxes")
+button_clear_boxes = ttk.Button(button_frame_container, text="Clear Entry Boxes", command=clear_container_entries)
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion container widgets
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
+    refresh_treeview(tree_container, dcd.Container)  # Load data from database
     main_window.mainloop()  # Wait for button clicks and act upon them
 # endregion main program
 
