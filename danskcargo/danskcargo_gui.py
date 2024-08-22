@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from ttkthemes import ThemedTk
 import danskcargo_data as dcd
 import danskcargo_sql as dcsql
+import danskcargo_func as dcf
 
 # region global constants
 padx = 8  # Horizontal distance to neighboring objects
@@ -19,26 +21,120 @@ evenrow = "#cccccc"  # color of even row in treeview
 def read_container_entries():  # Read content of entry boxes
     return entry_container_id.get(), entry_container_weight.get(), entry_container_destination.get(),
 
-
 def clear_container_entries():  # Clear entry boxes
     entry_container_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
     entry_container_weight.delete(0, tk.END)
     entry_container_destination.delete(0, tk.END)
     entry_container_weather.delete(0, tk.END)
 
-
 def write_container_entries(values):  # Fill entry boxes
     entry_container_id.insert(0, values[0])
     entry_container_weight.insert(0, values[1])
     entry_container_destination.insert(0, values[2])
-
 
 def edit_container(_, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
     index_selected = tree.focus()  # Index of selected tuple
     values = tree.item(index_selected, 'values')  # Values of selected tuple
     clear_container_entries()  # Clear entry boxes
     write_container_entries(values)  # Fill entry boxes
+
+def create_container(tree, record):  # add new tuple to database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.create_record(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def update_container(tree, record):  # update tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.update_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def delete_container(tree, record):  # delete tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.delete_soft_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
 # endregion container functions
+
+# region aircraft functions
+def read_aircraft_entries():  # Read content of entry boxes
+    return entry_aircraft_id.get(), entry_aircraft_max_cargo_weight.get(), entry_aircraft_registration.get(),
+
+def clear_aircraft_entries():  # Clear entry boxes
+    entry_aircraft_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_aircraft_max_cargo_weight.delete(0, tk.END)
+    entry_aircraft_registration.delete(0, tk.END)
+
+def write_aircraft_entries(values):  # Fill entry boxes
+    entry_container_id.insert(0, values[0])
+    entry_container_weight.insert(0, values[1])
+    entry_container_destination.insert(0, values[2])
+
+def edit_aircraft(_, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_container_entries()  # Clear entry boxes
+    write_container_entries(values)  # Fill entry boxes
+
+def create_aircraft(tree, record):  # add new tuple to database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.create_record(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def update_aircraft(tree, record):  # update tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.update_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def delete_aircraft(tree, record):  # delete tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.delete_soft_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+# endregion aircraft functions
+
+# region transport functions
+def read_transport_entries():  # Read content of entry boxes
+    return entry_container_id.get(), entry_container_weight.get(), entry_container_destination.get(),
+
+def clear_transport_entries():  # Clear entry boxes
+    entry_container_id.delete(0, tk.END)  # Delete text in entry box, beginning with the first character (0) and ending with the last character (tk.END)
+    entry_container_weight.delete(0, tk.END)
+    entry_container_destination.delete(0, tk.END)
+    entry_container_weather.delete(0, tk.END)
+
+def write_transport_entries(values):  # Fill entry boxes
+    entry_container_id.insert(0, values[0])
+    entry_container_weight.insert(0, values[1])
+    entry_container_destination.insert(0, values[2])
+
+def edit_transport(_, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+    index_selected = tree.focus()  # Index of selected tuple
+    values = tree.item(index_selected, 'values')  # Values of selected tuple
+    clear_container_entries()  # Clear entry boxes
+    write_container_entries(values)  # Fill entry boxes
+
+def create_transport(tree, record):  # add new tuple to database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.create_record(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def update_transport(tree, record):  # update tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.update_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+
+def delete_transport(tree, record):  # delete tuple in database
+    container = dcd.Container.convert_from_tuple(record)  # Convert tuple to Container
+    dcsql.delete_soft_container(container)  # Update database
+    clear_container_entries()  # Clear entry boxes
+    refresh_treeview(tree, dcd.Container)  # Refresh treeview table
+# endregion transport functions
 
 # region common functions
 def read_table(tree, class_):  # fill tree from database
@@ -128,15 +224,139 @@ entry_container_weather.grid(row=1, column=3, padx=padx, pady=pady)
 button_frame_container = ttk.Frame(controls_frame_container)
 button_frame_container.grid(row=1, column=0, padx=padx, pady=pady)
 # Define buttons
-button_create_container = ttk.Button(button_frame_container, text="Create")
+button_create_container = ttk.Button(button_frame_container, text="Create", command=lambda: create_container(tree_container, read_container_entries()))
 button_create_container.grid(row=0, column=1, padx=padx, pady=pady)
-button_update_container = ttk.Button(button_frame_container, text="Update")
+button_update_container = ttk.Button(button_frame_container, text="Update", command=lambda: update_container(tree_container, read_container_entries()))
 button_update_container.grid(row=0, column=2, padx=padx, pady=pady)
-button_delete_container = ttk.Button(button_frame_container, text="Delete")
+button_delete_container = ttk.Button(button_frame_container, text="Delete", command=lambda: delete_container(tree_container, read_container_entries()))
 button_delete_container.grid(row=0, column=3, padx=padx, pady=pady)
 button_clear_boxes = ttk.Button(button_frame_container, text="Clear Entry Boxes", command=clear_container_entries)
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion container widgets
+
+# region aircraft widgets
+frame_aircraft = ttk.LabelFrame(main_window, text="Aircraft")
+frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
+
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_aircraft = ttk.Frame(frame_aircraft)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_aircraft = ttk.Scrollbar(tree_frame_aircraft)
+tree_scroll_aircraft.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_aircraft = ttk.Treeview(tree_frame_aircraft, yscrollcommand=tree_scroll_aircraft.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_aircraft.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_aircraft.config(command=tree_aircraft.yview)
+
+# Define the data table's formatting and content
+tree_aircraft['columns'] = ("id", "Max.Crg.Wgt", "registration")  # Define columns
+tree_aircraft.bind("<ButtonRelease-1>", lambda event: edit_aircraft(event, tree_aircraft))  # Define function to be called, when an item is selected.
+tree_aircraft.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_aircraft.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_aircraft.column("Max.Crg.Wgt", anchor=tk.E, width=80)
+tree_aircraft.column("registration", anchor=tk.W, width=200)
+tree_aircraft.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_aircraft.heading("id", text="Id", anchor=tk.CENTER)
+tree_aircraft.heading("Max.Crg.Wgt", text="Max.Crg.Wgt", anchor=tk.CENTER)
+tree_aircraft.heading("registration", text="registration", anchor=tk.CENTER)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_aircraft = ttk.Frame(frame_aircraft)
+controls_frame_aircraft.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_aircraft = ttk.Frame(controls_frame_aircraft)  # Add tuple entry boxes
+edit_frame_aircraft.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for aircraft id
+label_aircraft_id = ttk.Label(edit_frame_aircraft, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_aircraft_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_aircraft_id = ttk.Entry(edit_frame_aircraft, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_aircraft_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for aircraft max cargo weight
+label_aircraft_max_cargo_weight = ttk.Label(edit_frame_aircraft, text="Max.Crg.Wgt")
+label_aircraft_max_cargo_weight.grid(row=0, column=1, padx=padx, pady=pady)
+entry_aircraft_max_cargo_weight = ttk.Entry(edit_frame_aircraft, width=8, justify="right")
+entry_aircraft_max_cargo_weight.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for aircraft registration
+label_aircraft_registration = ttk.Label(edit_frame_aircraft, text="Registration")
+label_aircraft_registration.grid(row=0, column=2, padx=padx, pady=pady)
+entry_aircraft_registration = ttk.Entry(edit_frame_aircraft, width=20)
+entry_aircraft_registration.grid(row=1, column=2, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_aircraft = ttk.Frame(controls_frame_aircraft)
+button_frame_aircraft.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_aircraft = ttk.Button(button_frame_aircraft, text="Create", command=lambda: create_aircraft(tree_aircraft, read_aircraft_entries()))
+button_create_aircraft.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_aircraft = ttk.Button(button_frame_aircraft, text="Update", command=lambda: update_aircraft(tree_aircraft, read_aircraft_entries()))
+button_update_aircraft.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_aircraft = ttk.Button(button_frame_aircraft, text="Delete", command=lambda: delete_aircraft(tree_aircraft, read_aircraft_entries()))
+button_delete_aircraft.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = ttk.Button(button_frame_aircraft, text="Clear Entry Boxes", command=clear_aircraft_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+# endregion aircraft widgets
+
+# region transport widgets
+frame_transport = ttk.LabelFrame(main_window, text="Aircraft")
+frame_transport.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
+
+# Define data table (Treeview) and its scrollbar. Put them in a Frame.
+tree_frame_transport = ttk.Frame(frame_transport)  # https://www.tutorialspoint.com/python/tk_frame.htm
+tree_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
+tree_scroll_transport = ttk.Scrollbar(tree_frame_transport)
+tree_scroll_transport.grid(row=0, column=1, padx=0, pady=pady, sticky='ns')
+tree_transport = ttk.Treeview(tree_frame_transport, yscrollcommand=tree_scroll_transport.set, selectmode="browse")  # https://docs.python.org/3/library/tkinter.ttk.html#treeview
+tree_transport.grid(row=0, column=0, padx=0, pady=pady)
+tree_scroll_transport.config(command=tree_transport.yview)
+
+# Define the data table's formatting and content
+tree_transport['columns'] = ("id", "date", "container_id", "transport_id")  # Define columns
+tree_transport.bind("<ButtonRelease-1>", lambda event: edit_transport(event, tree_transport))  # Define function to be called, when an item is selected.
+tree_transport.column("#0", width=0, stretch=tk.NO)  # Format columns. Suppress the irritating first empty column.
+tree_transport.column("id", anchor=tk.E, width=40)  # "E" stands for East, meaning Right. Possible anchors are N, NE, E, SE, S, SW, W, NW and CENTER
+tree_transport.column("Max.Crg.Wgt", anchor=tk.E, width=80)
+tree_transport.column("registration", anchor=tk.W, width=200)
+tree_transport.heading("#0", text="", anchor=tk.W)  # Create column headings
+tree_transport.heading("id", text="Id", anchor=tk.CENTER)
+tree_transport.heading("Max.Crg.Wgt", text="Max.Crg.Wgt", anchor=tk.CENTER)
+tree_transport.heading("registration", text="registration", anchor=tk.CENTER)
+
+# Define Frame which contains labels, entries and buttons
+controls_frame_transport = ttk.Frame(frame_transport)
+controls_frame_transport.grid(row=3, column=0, padx=padx, pady=pady)
+
+# Define Frame which contains labels (text fields) and entries (input fields)
+edit_frame_transport = ttk.Frame(controls_frame_transport)  # Add tuple entry boxes
+edit_frame_transport.grid(row=0, column=0, padx=padx, pady=pady)
+# label and entry for transport id
+label_transport_id = ttk.Label(edit_frame_transport, text="Id")  # https://www.tutorialspoint.com/python/tk_label.htm
+label_transport_id.grid(row=0, column=0, padx=padx, pady=pady)
+entry_transport_id = ttk.Entry(edit_frame_transport, width=4, justify="right")  # https://www.tutorialspoint.com/python/tk_entry.htm
+entry_transport_id.grid(row=1, column=0, padx=padx, pady=pady)
+# label and entry for transport max cargo weight
+label_transport_max_cargo_weight = ttk.Label(edit_frame_transport, text="Max.Crg.Wgt")
+label_transport_max_cargo_weight.grid(row=0, column=1, padx=padx, pady=pady)
+entry_transport_max_cargo_weight = ttk.Entry(edit_frame_transport, width=8, justify="right")
+entry_transport_max_cargo_weight.grid(row=1, column=1, padx=padx, pady=pady)
+# label and entry for transport registration
+label_transport_registration = ttk.Label(edit_frame_transport, text="Registration")
+label_transport_registration.grid(row=0, column=2, padx=padx, pady=pady)
+entry_transport_registration = ttk.Entry(edit_frame_transport, width=20)
+entry_transport_registration.grid(row=1, column=2, padx=padx, pady=pady)
+
+# Define Frame which contains buttons
+button_frame_transport = ttk.Frame(controls_frame_transport)
+button_frame_transport.grid(row=1, column=0, padx=padx, pady=pady)
+# Define buttons
+button_create_transport = ttk.Button(button_frame_transport, text="Create", command=lambda: create_transport(tree_transport, read_transport_entries()))
+button_create_transport.grid(row=0, column=1, padx=padx, pady=pady)
+button_update_transport = ttk.Button(button_frame_transport, text="Update", command=lambda: update_transport(tree_transport, read_transport_entries()))
+button_update_transport.grid(row=0, column=2, padx=padx, pady=pady)
+button_delete_transport = ttk.Button(button_frame_transport, text="Delete", command=lambda: delete_transport(tree_transport, read_transport_entries()))
+button_delete_transport.grid(row=0, column=3, padx=padx, pady=pady)
+button_clear_boxes = ttk.Button(button_frame_transport, text="Clear Entry Boxes", command=clear_transport_entries)
+button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
+# endregion transport widgets
 
 # region main program
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
